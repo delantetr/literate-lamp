@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ShoppingListForm from '../components/ShoppingListForm';
-import List from '../components/List';
+import ShoppingListForm from '../Components/ShoppingListForm/index';
+import List from '../Components/List/index';
 
 
 const ShoppingList= () => {
