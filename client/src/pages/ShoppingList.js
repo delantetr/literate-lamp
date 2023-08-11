@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import ShoppingListForm from './ShoppingListForm';
-import ShoppingList from './ShoppingList';
 
-function ShoppingList() {
+const ShoppingList= () => {
   const [list, setList] = useState([]);
 
   // Function to add a shopping list item
