@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ShoppingListForm from './ShoppingListForm';
+import ShoppingListForm from '../ShoppingListForm';
 
 function List(props) {
   const [edit, setEdit] = useState({
