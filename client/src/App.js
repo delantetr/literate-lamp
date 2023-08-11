@@ -7,9 +7,9 @@ import {
 import { BrowserRouter as Router, Routes, Route, Link, useLinkClickHandler } from 'react-router-dom';
 import Home from './pages/Home';
 import {Navbar,Nav,Container} from 'react-bootstrap';
-import { Recipe } from './pages/Recipe'
+import  Recipe  from './pages/Recipe'
 import { Profile } from './pages/Profile'
-import { ShoppingList} from './pages/ShoppingList'
+import ShoppingList from './pages/ShoppingList'
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -44,9 +44,9 @@ function App() {
           </Navbar>
           <div className="container">
             <Routes>
-              <Route path="/Home" element={<Home/>}/>
+              <Route path='/Home' element={<Home/>}/>
               <Route path='/Recipe' element={<Recipe/>}/>
-              <Route path="/Profile" element={<Profile/>}/>
+              <Route path='/Profile' element={<Profile/>}/>
               <Route path='/ShoppingList' element={<ShoppingList/>}/>
             </Routes>
           </div>
