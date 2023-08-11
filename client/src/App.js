@@ -5,9 +5,11 @@ import {
   ApolloProvider,
 } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route, Link, useLinkClickHandler } from 'react-router-dom';
-import Home from './Components/Home';
+import Home from './pages/Home';
 import {Navbar,Nav,Container} from 'react-bootstrap';
-
+import  Recipe  from './pages/Recipe'
+import { Profile } from './pages/Profile'
+import ShoppingList from './pages/ShoppingList'
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -20,6 +22,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
+          <h1 class='text-center'>PrepPal</h1>
         <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme='dark' >
             <Container>
               <Navbar.Brand as={Link} to={'/Home'}>PrepPal</Navbar.Brand>
@@ -27,14 +30,24 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                   <Nav.Link as={Link} to='/Home'>Home</Nav.Link>
-                  <Nav.Link as={Link} to='/Profile' >Profile</Nav.Link>
+                  <Nav.Link as={Link} to='/Recipe' >Recipe</Nav.Link>
+                  <Nav.Link as={Link} to='/ShoppingList' >Shopping List</Nav.Link>
+                  <Nav.Link class='' as={Link} to='/Profile' ></Nav.Link>
                 </Nav>
+                <Nav>
+              <Nav.Link>
+              SignIn/SignUp
+            </Nav.Link>
+          </Nav>
               </Navbar.Collapse>
             </Container>
           </Navbar>
           <div className="container">
             <Routes>
-              <Route path="/Home" element={<Home/>}/>
+              <Route path='/Home' element={<Home/>}/>
+              <Route path='/Recipe' element={<Recipe/>}/>
+              <Route path='/Profile' element={<Profile/>}/>
+              <Route path='/ShoppingList' element={<ShoppingList/>}/>
             </Routes>
           </div>
         </div>
