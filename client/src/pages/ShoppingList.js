@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ShoppingListForm from './ShoppingListForm';
+import List from './List';
+
 
 const ShoppingList= () => {
   const [list, setList] = useState([]);
@@ -47,11 +49,11 @@ const ShoppingList= () => {
     <div>
       <h1>Your Shopping List</h1>
       <ShoppingListForm onSubmit={addListItem} />
-      <ShoppingList
+      <List
         list={list}
         removeListItem={removeListItem}
         editListItem={editListItem}
-      ></ShoppingList>
+      ></List>
     </div>
   );
 }
