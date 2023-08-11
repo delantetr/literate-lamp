@@ -8,6 +8,10 @@ const recipeSchema = new Schema({
     description: {
         type: String,
     },
+    method: {
+        type: String,
+        required: true
+    },
     ingredients: [
         {
             type: String,
@@ -18,6 +22,9 @@ const recipeSchema = new Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+    }
 });
 const Recipe = model('Recipe', recipeSchema);
 
