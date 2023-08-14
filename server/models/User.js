@@ -20,7 +20,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    savedRecipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+    savedRecipes: [{ 
+      type: Schema.Types.ObjectId, 
+      ref: 'Recipe' 
+    }],
+
     // set shoppingList to be an array of data that adheres to the shoppingListSchema
     shoppingList: [shoppingListSchema],
   },
