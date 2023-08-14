@@ -1,17 +1,16 @@
 import React from 'react';
 import { Button, Form, Card } from 'react-bootstrap';
 
-const Login = () => {
+const Signup = () => {
   return (
     <Card style={{ width: '18rem' }}>
     <Card.Body>
-      <Card.Title>Login</Card.Title>
+      <Card.Title>Signup</Card.Title>
       <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" />
             <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
 
@@ -30,4 +29,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default Signup;
