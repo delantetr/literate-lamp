@@ -10,6 +10,7 @@ import {Navbar,Nav,Container} from 'react-bootstrap';
 import  Recipe  from './pages/Recipe'
 import { Profile } from './pages/Profile'
 import ShoppingList from './pages/ShoppingList'
+import Login from './pages/Login';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -35,8 +36,11 @@ function App() {
                   <Nav.Link class='' as={Link} to='/Profile' ></Nav.Link>
                 </Nav>
                 <Nav>
-              <Nav.Link>
-              SignIn/SignUp
+              <Nav.Link as={Link} to="/Login">
+              Login
+            </Nav.Link>
+            <Nav.Link>
+              Signup
             </Nav.Link>
           </Nav>
               </Navbar.Collapse>
@@ -48,6 +52,7 @@ function App() {
               <Route path='/Recipe' element={<Recipe/>}/>
               <Route path='/Profile' element={<Profile/>}/>
               <Route path='/ShoppingList' element={<ShoppingList/>}/>
+              <Route path='/Login' element={<Login/>}/>
             </Routes>
           </div>
         </div>
