@@ -24,6 +24,11 @@ const recipeSchema = new Schema({
     },
     image: {
         type: String,
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 const Recipe = model('Recipe', recipeSchema);

@@ -20,6 +20,7 @@ type Recipe {
   ingredients: [String!]!
   cuisine: String!
   image: String
+  author: [User]
 }
 
 type List {
