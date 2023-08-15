@@ -47,6 +47,7 @@ function App() {
           {/* Content */}
           <div className="container">
             <Routes>
+              <Route path= '/' element={<Home />} />
               <Route path='/Home' element={<Home />} />
               <Route path='/Recipe' element={<Recipe />} />
               <Route path='/Profile' element={<Profile />} />

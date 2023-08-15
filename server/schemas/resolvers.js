@@ -33,7 +33,6 @@ const resolvers = {
       try {
         const recipe = await Recipe.findOne({ _id: id }).populate('user');
         return recipe;
-        
       } catch (error) {
         throw new Error('No recipe found');
       }
@@ -113,12 +112,6 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in to add a recipe!');
       }
     },
-    
-    
-    
-    
-    
-    
     saveRecipeToUser: async (parent, { userId, recipeId }, context) => {
       if (context.user) {
         try {
