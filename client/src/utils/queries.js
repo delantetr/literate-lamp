@@ -7,8 +7,14 @@ export const QUERY_USER = gql`
       username
       email
       password
-      savedRecipes
-      shoppingList
+      savedRecipes {
+        _id
+        name
+      }
+      shoppingList {
+        _id
+        items
+      }
       recipeCount
     }
   }
@@ -24,6 +30,9 @@ export const QUERY_SINGLE_RECIPE = gql`
       ingredients
       cuisine
       image
+      user {
+        username
+      }
     }
   }
 `;
@@ -33,6 +42,12 @@ export const QUERY_RECIPES = gql`
     recipes {
       _id
       name
+      description
+      method
+      ingredients
+      cuisine
+      image
+      user
     }
   }
 `;
@@ -42,7 +57,17 @@ export const QUERY_ME = gql`
     me {
       _id
       username
-      shoppingList
+      email
+      password
+      shoppingList {
+        _id
+        items
+      }
+      savedRecipes {
+        _id
+        name
+      }
+      recipeCount
     }
   }
 `;

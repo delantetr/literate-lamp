@@ -47,6 +47,7 @@ mutation AddRecipe($name: String!, $cuisine: String!, $method: String!) {
       ingredients
       method
       name
+      user 
     }
   }
 `;

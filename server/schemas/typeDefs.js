@@ -16,10 +16,11 @@ type Recipe {
   _id: ID!
   name: String!
   description: String
-  method: String!
+  method: [String!]
   ingredients: [String!]!
   cuisine: String!
   image: String
+  serving_size: Int
   user: User!
 }
 
@@ -44,7 +45,7 @@ type Auth {
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(name: String!, ingredients: [String!]!, cuisine: String!, method: String!): Recipe
+    addRecipe(name: String!, ingredients: [String!]!, cuisine: String!, method: [String!]): Recipe
     saveRecipeToUser(userId: ID!, recipeId: ID!): User
     addToShoppingList(userId: ID!, items: [String!]!): User
     

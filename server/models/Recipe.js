@@ -8,10 +8,12 @@ const recipeSchema = new Schema({
     description: {
         type: String,
     },
-    method: {
+    method:[ 
+        {
         type: String,
         required: true
-    },
+        }
+    ],
     ingredients: [
         {
             type: String,
@@ -24,6 +26,9 @@ const recipeSchema = new Schema({
     },
     image: {
         type: String,
+    },
+    serving_size: {
+        type: Number,
     },
     user: {
         type: Schema.Types.ObjectId,
