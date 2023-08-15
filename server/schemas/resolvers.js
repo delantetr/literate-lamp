@@ -1,6 +1,7 @@
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthenticationError, ApolloError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
+const { createWriteStream } = require('fs');
 
 const resolvers = {
 
@@ -80,33 +81,74 @@ const resolvers = {
         throw new Error('Login failed'); // Catch and handle any errors
       }
     },
-    addRecipe: async (parent, { name, ingredients, cuisine, method }, context) => {
+    addRecipe: async (parent, { name, ingredients, cuisine, method, image }, context) => {
       if (context.user) {
         try {
-          console.log('Authenticated user:', context.user); // Log the authenticated user
-
-    
-          const newRecipe = await Recipe.create({ 
-            name, 
-            ingredients, 
-            cuisine, 
-            method,
-            user: context.user._id
-          });
-    
-          console.log('New recipe created:', newRecipe); // Log the new recipe
-    
-          // Update the authenticated user's savedRecipes
-          await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $addToSet: { savedRecipes: newRecipe._id } },
-            { new: true }
-          );
-    
-          return newRecipe;
+          console.log('Entering addRecipe resolver');
+          console.log('Recipe Input:', name, ingredients, cuisine, method, image);
+  
+          // Check if an image is provided
+          if (image) {
+            console.log('Image is provided:', image);
+  
+            const { createReadStream, filename } = await image;
+            console.log('Creating read stream for image:', filename);
+  
+            const stream = createReadStream();
+            const path = `public/uploads/${filename}`;
+  
+            await new Promise((resolve, reject) => {
+              stream
+                .pipe(createWriteStream(path))
+                .on('finish', resolve)
+                .on('error', reject);
+            });
+            console.log('Stream: ', stream);
+  
+            const newRecipe = await Recipe.create({
+              name,
+              ingredients,
+              cuisine,
+              method,
+              image: path, // Include the image field when an image is provided
+              user: context.user._id,
+            });
+            console.log('New Recipe: ', newRecipe);
+  
+            await User.findOneAndUpdate(
+              { _id: context.user._id },
+              { $addToSet: { savedRecipes: newRecipe._id } },
+              { new: true }
+            );
+  
+            console.log('Exiting addRecipe resolver');
+            return newRecipe;
+          } else {
+            console.log('Image is not provided');
+  
+            // Create the recipe without the image field
+            const newRecipe = await Recipe.create({
+              name,
+              ingredients,
+              cuisine,
+              method,
+              user: context.user._id,
+            });
+  
+            console.log('New Recipe: ', newRecipe);
+  
+            await User.findOneAndUpdate(
+              { _id: context.user._id },
+              { $addToSet: { savedRecipes: newRecipe._id } },
+              { new: true }
+            );
+  
+            console.log('Exiting addRecipe resolver');
+            return newRecipe;
+          }
         } catch (error) {
           console.error('Error adding recipe:', error);
-          throw new Error('Failed to add recipe');
+          return new ApolloError('Failed to add recipe', 'RECIPE_ADD_ERROR');
         }
       } else {
         throw new AuthenticationError('You need to be logged in to add a recipe!');
@@ -148,7 +190,6 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in to add items to the shopping list!');
     },
   },
-
 };
 
 module.exports = resolvers;
