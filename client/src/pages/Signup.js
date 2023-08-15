@@ -6,7 +6,7 @@ import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const Signup = () => {
+const Signup =(props) => {
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -53,11 +53,21 @@ const Signup = () => {
             <Card.Body>
               <Card.Title>Signup</Card.Title>
               <Form onSubmit={handleFormSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="User"
+                    name="User"
+                    placeholder="Enter Username"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
+                    id="email"
                     placeholder="Enter email"
                     onChange={handleChange}
                   />
@@ -69,6 +79,7 @@ const Signup = () => {
                   <Form.Control
                     type="password"
                     name="password"
+                    id="pwd"
                     placeholder="Password"
                     onChange={handleChange}
                   />
