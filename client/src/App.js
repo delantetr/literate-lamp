@@ -27,7 +27,7 @@ function App() {
           {/* Navbar */}
           <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme='dark'>
             <Container>
-              <Navbar.Brand as={Link} to={'/Home'}>PrepPal</Navbar.Brand>
+              <Navbar.Brand as={Link} to={'/'}>PrepPal</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
