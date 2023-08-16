@@ -5,66 +5,84 @@ import { LOGIN } from '../utils/mutations';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
-
-
-
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN);
+  const [formState, setFormState] = useState({
+    email: '',
+    password: '',
+  });
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
-      });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // Destructure the addUser mutation and response data
+  const [login, { error, data }] = useMutation(LOGIN);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
     setFormState({
       ...formState,
       [name]: value,
     });
   };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log('Form State:', formState);
+
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
+      console.log('Login Mutation Data:', data);
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error('Login Mutation Error:', e);
+    }
+  };
+
+  console.log('Rendering Login Component');
+  
   return (
     <main className='flex-row justify-center mb-4'>
       <div className='mt-5'>
-        <div className='container' class='m-3'>
-        <Link to='/signup'>← Go to Signup</Link>
-        </div>
-        <Card style={{ width: '18rem' }}>
-          <Card.Body>
-            {/* Card Title */}
-            <Card.Title>Login</Card.Title>
+        {data ? (
+          <p>
+            Success! You may now head{' '}
+            <Link to="/">back to the homepage.</Link>
+          </p>
+        ) : (
+          <Card style={{ width: '18rem' }}>
+            <Card.Body>
+              <Card.Title>Login</Card.Title>
+              <Form onSubmit={handleFormSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter email"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-            {/* Login Form */}
-            <Form onSubmit={handleFormSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" id="email" placeholder="Enter email" onChange={handleChange} />
-                {/* You can add any additional text or labels here */}
-              </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    id="pwd"
+                    placeholder="Password"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" id="pwd" placeholder="Password" onChange={handleChange}/>
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        )}
       </div>
     </main>
   );

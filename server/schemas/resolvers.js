@@ -2,6 +2,7 @@ const { AuthenticationError, ApolloError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
 const { createWriteStream } = require('fs');
+const bcrypt = require('bcrypt');
 
 const resolvers = {
 
@@ -60,21 +61,29 @@ const resolvers = {
       }
     },
     login: async (parent, { email, password }) => {
+      console.log('Login Attempt:', email);
       try{
         const user = await User.findOne({ email });
+        console.log('User from Database:', user);
+        console.log('User password:', user.password);
 
         if (!user) {
           throw new AuthenticationError('No user found with this email address');
         }
 
-        const correctPw = await user.isCorrectPassword(password);
+        let correctPw = false;
+
+        if (user.password.startsWith('$2a$')) {
+          correctPw = await bcrypt.compare(password, user.password);
+        } else {
+          correctPw = password === user.password;
+        }
 
         if (!correctPw) {
           throw new AuthenticationError('Incorrect credentials');
         }
 
         const token = signToken(user);
-
         return { token, user };
       } catch (error) {
         console.error('Login error:', error);
