@@ -1,61 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+
 import ShoppingListForm from '../components/ShoppingListForm';
 import List from '../components/List';
 
+import { QUERY_ME } from '../utils/queries';
+
 
 const ShoppingList= () => {
-  const [list, setList] = useState([]);
-
-  // Function to add a shopping list item
-  const addListItem = (item) => {
-    console.log(
-      item
-    );
-    // Check to see if the item text is empty
-    if (!item.text) {
-      return;
-    }
-
-    // Add the new shopping list item to the existing array of objects
-    const newList = [item, ...list];
-    console.log(newList);
-
-    // Call setList to update state with our new set of shopping list items
-    setList(newList);
-  };
-
-  // Function to remove shopping list item and update state
-  const removeListItem = (id) => {
-    const updatedList = [...list].filter((item) => item.id !== id);
-
-    setList(updatedList);
-  };
-
-  // Function to edit the shopping list item
-  const editListItem = (itemId, newValue) => {
-    // Make sure that the value isn't empty
-    if (!newValue.text) {
-      return;
-    }
-
-    // We use the "prev" argument provided with the useState hook to map through our list of items
-    // We then check to see if the item ID matches the if of the item that was clicked and if so we set it to a new value
-    setList((prev) =>
-      prev.map((item) => (item.id === itemId ? newValue : item))
-    );
-  };
+  const { loading, data } = useQuery(QUERY_ME);
+  const me = data?.me || [];
 
   return (
-    <div>
-      <h1>Your Shopping List</h1>
-      <ShoppingListForm onSubmit={addListItem} />
-      <List
-        list={list}
-        removeListItem={removeListItem}
-        editListItem={editListItem}
-      ></List>
-    </div>
-  );
-}
+      <main>
+        <div className="flex-row justify-center">
+        <h1>Your Shopping List</h1>
+          <div
+            className="col-12 col-md-10 mb-3 p-3"
+            style={{ border: '1px dotted #1a1a1a' }}
+          >
+            <ShoppingListForm />
+          </div>
+          <div className="col-12 col-md-8 mb-3">
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <List
+                list={me.shoppingList}
+                title="Your Shopping List"
+              />
+            )}
+          </div>
+        </div>
+      </main>
+    );
+  };
 
 export default ShoppingList;

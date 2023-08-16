@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
-import ShoppingListForm from '../ShoppingListForm';
+import React from 'react';
 
-function List(props) {
-  const [edit, setEdit] = useState({
-    id: null,
-    value: '',
-  });
-
-  console.log(props.list);
-
-  const submitUpdate = (value) => {
-    props.editListItem(edit.id, value);
-    setEdit({ id: null, value: '' });
-  };
-
-  if (edit.id) {
-    return <ShoppingListForm edit={edit} onSubmit={submitUpdate} />;
+const List = ({ me, items }) => {
+  if (!items) {
+    return <h3>No Items Yet</h3>;
   }
 
-  return props.list.map((item, i) => (
-      <div className="icons">
-        {console.log(item)}
-        <p onClick={() => setEdit({ id: item.id, value: item.text })}> ✏️</p>
-        <p onClick={() => props.removeListItem(item.id)}> 🗑️</p>
-      </div>
-  ));
-}
-
+  return (
+    <div>
+      {me &&
+        me.items.map((items) => (
+          <div key={me.item._id} className="card mb-3">
+            <h4 className="card-header bg-primary text-light p-2 m-0">
+              {me.items} <br />
+            </h4>
+          </div>
+        ))}
+    </div>
+  );
+};
 export default List;
