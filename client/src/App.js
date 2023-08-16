@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Home from './pages/Home';
-import Recipe from './pages/Recipe';
+import Recipes from './pages/Recipes';
 import { Profile } from './pages/Profile';
 import ShoppingList from './pages/ShoppingList';
 import Login from './pages/Login';
@@ -32,7 +32,7 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                   <Nav.Link as={Link} to='/Home'>Home</Nav.Link>
-                  <Nav.Link as={Link} to='/Recipe'>Recipe</Nav.Link>
+                  <Nav.Link as={Link} to='/Recipes'>Recipes</Nav.Link>
                   <Nav.Link as={Link} to='/ShoppingList'>Shopping List</Nav.Link>
                   <Nav.Link as={Link} to='/Profile'></Nav.Link>
                 </Nav>
@@ -49,7 +49,7 @@ function App() {
             <Routes>
               <Route path= '/' element={<Home />} />
               <Route path='/Home' element={<Home />} />
-              <Route path='/Recipe' element={<Recipe />} />
+              <Route path='/Recipes' element={<Recipes />} />
               <Route path='/Profile' element={<Profile />} />
               <Route path='/ShoppingList' element={<ShoppingList />} />
               <Route path='/Login' element={<Login />} />
