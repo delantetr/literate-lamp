@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Home from './pages/Home';
 import Recipes from './pages/Recipes';
+import Recipe from './pages/Recipe';
 import { Profile } from './pages/Profile';
 import ShoppingList from './pages/ShoppingList';
 import Login from './pages/Login';
@@ -31,14 +32,14 @@ function App() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link as={Link} to='/Home'>Home</Nav.Link>
-                  <Nav.Link as={Link} to='/Recipes'>Recipes</Nav.Link>
-                  <Nav.Link as={Link} to='/ShoppingList'>Shopping List</Nav.Link>
-                  <Nav.Link as={Link} to='/Profile'></Nav.Link>
+                  <Nav.Link as={Link} to='/'>Home</Nav.Link>
+                  <Nav.Link as={Link} to='/recipe'>Recipes</Nav.Link>
+                  <Nav.Link as={Link} to='/shoppinglist'>Shopping List</Nav.Link>
+                  <Nav.Link as={Link} to='/profile'></Nav.Link>
                 </Nav>
                 <Nav>
-                  <Nav.Link as={Link} to="/Login">Login</Nav.Link>
-                  <Nav.Link as={Link} to="/Signup">Signup</Nav.Link>
+                  <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                  <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -47,13 +48,13 @@ function App() {
           {/* Content */}
           <div className="container">
             <Routes>
-              <Route path= '/' element={<Home />} />
-              <Route path='/Home' element={<Home />} />
-              <Route path='/Recipes' element={<Recipes />} />
-              <Route path='/Profile' element={<Profile />} />
-              <Route path='/ShoppingList' element={<ShoppingList />} />
-              <Route path='/Login' element={<Login />} />
-              <Route path='/Signup' element={<Signup />} />
+              <Route path='/' element={<Home />} />
+              <Route path='/recipe' element={<Recipes />} />
+              <Route path='/recipe/:recipeId' element={<Recipe />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/shoppingList' element={<ShoppingList />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
             </Routes>
           </div>
         </div>
