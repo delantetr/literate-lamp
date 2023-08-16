@@ -38,8 +38,8 @@ mutation Login($email: String!, $password: String!) {
 `;
 
 export const ADD_RECIPE = gql`
-mutation AddRecipe($name: String!, $cuisine: String!, $method: String!) {
-    addRecipe(name: $name, cuisine: $cuisine, method: $method) {
+mutation AddRecipe($name: String!, $cuisine: String!, $method: String!, $image: Upload) {
+    addRecipe(name: $name, cuisine: $cuisine, method: $method, image: $image) {
       _id
       cuisine
       description
@@ -47,7 +47,8 @@ mutation AddRecipe($name: String!, $cuisine: String!, $method: String!) {
       ingredients
       method
       name
-      user 
+      user
+      serving_size
     }
   }
 `;

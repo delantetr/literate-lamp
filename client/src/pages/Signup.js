@@ -53,11 +53,11 @@ const Signup =(props) => {
             <Card.Body>
               <Card.Title>Signup</Card.Title>
               <Form onSubmit={handleFormSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="formBasicUsername">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
-                    type="User"
-                    name="User"
+                    type="text"
+                    name="username"
                     placeholder="Enter Username"
                     onChange={handleChange}
                   />
