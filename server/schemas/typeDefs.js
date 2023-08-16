@@ -21,7 +21,7 @@ type Recipe {
   cuisine: String!
   image: String
   serving_size: Int
-  user: User!
+  user: User
 }
 
 type List {

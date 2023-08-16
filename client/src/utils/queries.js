@@ -47,7 +47,7 @@ export const QUERY_RECIPES = gql`
       ingredients
       cuisine
       image
-      user
+
     }
   }
 `;
