@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Auth from '../utils/auth';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
@@ -47,11 +49,19 @@ const Recipe = () => {
           <li key={index}>{method}</li>
         ))}
         </ul>
-        
-    </div>
-    <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <AddToShoppingList recipeId={recipe._id} />
       </div>
+
+      {Auth.loggedIn() ? (
+        <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+            <AddToShoppingList recipeId={recipe._id} />
+        </div>
+      ) : (
+        <p>
+          You need to be logged in to endorse skills. Please{' '}
+          <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
+        </p>
+      )};   
+
     </main>
   );
 };
