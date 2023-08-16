@@ -9,6 +9,7 @@ import { Profile } from './pages/Profile';
 import ShoppingList from './pages/ShoppingList';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Auth from './utils/auth'
 
 // Apollo Client setup
 const client = new ApolloClient({
@@ -18,6 +19,10 @@ const client = new ApolloClient({
 
 
 function App() {
+  const handleLogout = () => {
+    Auth.logout();
+  };
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -35,12 +40,21 @@ function App() {
                   <Nav.Link as={Link} to='/'>Home</Nav.Link>
                   <Nav.Link as={Link} to='/recipe'>Recipes</Nav.Link>
                   <Nav.Link as={Link} to='/shoppinglist'>Shopping List</Nav.Link>
-                  <Nav.Link as={Link} to='/profile'></Nav.Link>
+                  
                 </Nav>
-                <Nav>
-                  <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                  <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
-                </Nav>
+
+                {Auth.loggedIn() ? (
+                  <Nav>
+                    <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
+                    <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  </Nav>
+                ) : (
+                  <Nav>
+                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                    <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+                  </Nav>
+                )};
+                
               </Navbar.Collapse>
             </Container>
           </Navbar>
