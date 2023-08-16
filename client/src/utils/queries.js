@@ -22,7 +22,7 @@ export const QUERY_USER = gql`
 
 export const QUERY_SINGLE_RECIPE = gql`
   query singleRecipe($recipeId: ID!) {
-    recipe(recipeId: $recipeId) {
+    recipe(id: $recipeId) {
       _id
       name
       description
