@@ -20,7 +20,7 @@ const Recipes = () => {
     <main>
       <div className="card-columns">
         {recipes.map((recipe) => (
-          <Card key={recipe._id}>
+          <Card className="m-4" key={recipe._id}>
             <Card.Img variant="top" src={recipe.image} alt={recipe.name} style={{ width: '200px', height: '150px' }}/>
             <Card.Body>
               {/* Create a link to the single recipe page */}
@@ -34,9 +34,9 @@ const Recipes = () => {
         ))}
       </div>
       {Auth.loggedIn() ? (
-        <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <Card className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
             <AddRecipe />
-        </div>
+        </Card>
       ) : (
         <p>
           <h4>Want to add a recipe?</h4>

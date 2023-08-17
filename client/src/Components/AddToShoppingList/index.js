@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import Button from 'react-bootstrap/Button'
 
 import { ADD_RECIPE } from '../../utils/mutations';
 
@@ -26,9 +27,9 @@ const AddToShoppingList = ({ recipeId }) => {
     <div>
       <h4>Want to make this recipe? Add it to your shopping list!</h4>
         <div className="col-12 col-lg-3">
-          <button className="btn btn-info btn-block py-3" type="submit" onSubmit={handleButtonClick}>
+          <Button className="btn btn-info btn-block py-3" type="submit" onSubmit={handleButtonClick}>
             Add
-          </button>
+          </Button>
         </div>
         {error && (
           <div className="col-12 my-3 bg-danger text-white p-3">

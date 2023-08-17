@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { QUERY_SINGLE_RECIPE, QUERY_RANDOM_RECIPE_ID } from '../utils/queries';
 import AddToShoppingList from '../components/AddToShoppingList';
 import Auth from '../utils/auth';
+import Card from 'react-bootstrap/Card';
 
 const Home = () => {
   const { loading: randomIdLoading, data: randomIdData } = useQuery(QUERY_RANDOM_RECIPE_ID);
@@ -22,18 +23,23 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Welcome to Prepal!</h1>
-      <h2>Featured Recipe</h2>
-
+      <div className='d-flex justify-content-center'>
+      <h1 className='h1'>Welcome to Prepal!</h1>
+      </div>
+      <div className='text-center'>
+        <h2>Featured Recipe</h2>
+      </div>
+      <Card>
+        <Card.Body>
       <div>
         {featuredRecipe.image ? (
           <img src={featuredRecipe.image} alt={featuredRecipe.name} style={{ width: '200px', height: '150px' }} />
         ) : (
-          <img src="/placeholder-image.jpg" alt="Placeholder" />
+          <Card.Img src="/placeholder-image.jpg" alt="Placeholder" />
         )}
         <h1 className="card-header">{featuredRecipe.name}</h1>
       </div>
-
+      <Card.Text>
       <div>
         <h2>Ingredients:</h2>
         <ul>
@@ -59,11 +65,14 @@ const Home = () => {
           )}
         </ul>
       </div>
+      </Card.Text>
+      </Card.Body>
+      </Card>
 
       {Auth.loggedIn() ? (
-        <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <Card className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
             <AddToShoppingList featuredRecipeId={featuredRecipe._id} />
-        </div>
+        </Card>
       ) : (
         <p>
           <h4>Need the ingredients for this recipe?</h4>

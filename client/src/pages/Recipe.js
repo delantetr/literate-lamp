@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import Card from 'react-bootstrap/Card';
 
 import AddToShoppingList from '../components/AddToShoppingList';
 
@@ -28,6 +29,7 @@ const Recipe = () => {
   }
   return (
     <main>
+      <Card className='m-4'>
     <div>
         
         {recipe.image ? (
@@ -55,11 +57,11 @@ const Recipe = () => {
         ))}
         </ul>
       </div>
-
+      </Card>
       {Auth.loggedIn() ? (
-        <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <Card className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
             <AddToShoppingList recipeId={recipe._id} />
-        </div>
+        </Card>
       ) : (
         <p>
           <h4>Need the ingredients for this recipe?</h4>
