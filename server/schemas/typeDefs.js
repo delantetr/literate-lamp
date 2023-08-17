@@ -39,6 +39,7 @@ type Auth {
     user(id: ID!): User
     recipes: [Recipe]
     recipe(id: ID!): Recipe
+    randomRecipeId: ID!
     me: User
   }
 
@@ -48,6 +49,8 @@ type Auth {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addRecipe(name: String!, ingredients: [String!]!, cuisine: String!, method: [String!], image: Upload): Recipe
+    updateRecipe(id: ID!, name: String, ingredients: [String!], cuisine: String, method: [String!], image: Upload): Recipe
+    updateRecipeImage(id: ID!, image: Upload!): Recipe
     saveRecipeToUser(userId: ID!, recipeId: ID!): User
     addToShoppingList(userId: ID!, items: [String!]!): User
     

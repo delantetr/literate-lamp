@@ -5,7 +5,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Home from './pages/Home';
 import Recipes from './pages/Recipes';
 import Recipe from './pages/Recipe';
-import { Profile } from './pages/Profile';
+import Profile from './pages/Profile';
 import ShoppingList from './pages/ShoppingList';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -45,7 +45,7 @@ function App() {
 
                 {Auth.loggedIn() ? (
                   <Nav>
-                    <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
+                    <Nav.Link as={Link} to='/me'>Profile</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                   </Nav>
                 ) : (
@@ -65,7 +65,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/recipe' element={<Recipes />} />
               <Route path='/recipe/:recipeId' element={<Recipe />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route path='/me' element={<Profile />} />
               <Route path='/shoppingList' element={<ShoppingList />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />

@@ -26,7 +26,6 @@ mutation login($email: String!, $password: String!) {
         recipeCount
         savedRecipes {
           _id
-          name
         }
         shoppingList {
           _id
@@ -78,4 +77,26 @@ mutation addToShoppingList($userId: ID!, $items: [String!]!) {
       }
     }
   }
+`;
+
+export const UPDATE_RECIPE = gql`
+mutation UpdateRecipe($updateRecipeId: ID!, $image: Upload, $name: String!, $ingredients: [String!]!, $cuisine: String!, $method: [String!]) {
+  updateRecipe(id: $updateRecipeId, image: $image, name: $name, ingredients: $ingredients, cuisine: $cuisine, method: $method) {
+    _id
+    image
+    name
+    ingredients
+    cuisine
+    method
+  }
+}
+`;
+
+export const UPDATE_RECIPE_IMAGE = gql`
+mutation UpdateRecipeImage($updateRecipeImageId: ID!, $image: Upload!) {
+  updateRecipeImage(id: $updateRecipeImageId, image: $image) {
+    _id
+    image
+  }
+}
 `;

@@ -24,6 +24,9 @@ db.once('open', async () => {
 
     // Save the new recipe to the database
     await newRecipe.save();
+
+    user.savedRecipes.push(newRecipe);
+    await user.save();
   }
 
   console.log('All done!');
