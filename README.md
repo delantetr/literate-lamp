@@ -35,4 +35,3 @@ N/A
 Contact us on GitHub:
 <br>
 [Delante](https://github.com/delantetr), [Reagan](https://github.com/Reyyahs), and [Monique](https://github.com/mahlheim)! 
-
