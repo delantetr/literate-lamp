@@ -33,5 +33,55 @@
         ],
         "username": "prepal",
         "image": "potato-salad.jpg"
+    },
+    {
+        "name": "Onigiri",
+        "serving_size": 4,
+        "ingredients": [
+            "3 cups washed sushi rice",
+            "2 tablespoons rice vinegar",
+            "Salt, to taste",
+            "2 large filets cooked salmon, flavored as desired",
+            "2 tablespoons mayo",
+            "2 tablespoons gochujang",
+            "1 pack nori, cut into strips",
+            "Soy sauce for dipping"
+        ],
+        "cuisine": "Fish",
+        "method": [
+            "1. Cook sushi rice according to rice cooker directions",
+            "2. Break up the salmon with a fork and mix with mayo and gochujang",
+            "3. Once rice is finished cooking, add the rice vinegar and salt to taste. Mix well, taking care not to break the rice grains.",
+            "4. Using your hands or an onigiri shaper, enclose the salmon mixture in your desired amount of rice and shape.",
+            "5. Wrap the onigiri with the strips of nori. Serve with soy sauce."
+
+        ],
+        "username": "prepal",
+        "image": "onigiri.jpg"
+    },
+    {
+        "name": "Pancakes",
+        "serving_size": 4,
+        "ingredients": [
+            "1 1/2 cups AP flour",
+            "3 1/2 teaspoons baking powder",
+            "1 tablespoon white sugar",
+            "1/4 teaspoon salt",
+            "1 1/4 cups milk",
+            "3 tablespoons butter, melted",
+            "1 egg"
+        ],
+        "cuisine": "Breakfast",
+        "method": [
+            "1. Combine dry ingredients.",
+            "2. Mix wet ingredients into dry mixture, taking care not to over mix.",
+            "3. Allow the mixture to sit for at least 5 minutes to aerate.",
+            "4. In a lightly greased pan over medium-low heat, pour 1/2 cup of batter at a time. Allow to cook to golden brown before flipping.",
+            "5. Serve warm with maple syrup."
+    
+        ],
+        "username": "prepal",
+        "image": "pancake.jpg"
     }
+
 ]
