@@ -3,6 +3,17 @@ const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
 const { createWriteStream } = require('fs');
 const bcrypt = require('bcrypt');
+const { Schema } = require('mongoose');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: 'public/uploads/', // Specify your desired destination folder
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // Use the original filename for the uploaded file
+  },
+}); 
+
+const upload = multer({ storage });
 
 const resolvers = {
 
@@ -24,22 +35,45 @@ const resolvers = {
       }
     },
     recipes: async () => {
-      try{
+      try {
         const recipes = await Recipe.find().populate('user');
-        return recipes;
+    
+        // Construct image URLs based on filenames
+        const recipesWithImageUrls = recipes.map(recipe => ({
+          ...recipe.toObject(), // Convert Mongoose document to plain object
+          image: `/uploads/${recipe.image}` // Construct the URL
+        }));
+    
+        return recipesWithImageUrls;
       } catch (error) {
-        throw new Error('No users found');
+        throw new Error('Error fetching recipes');
       }
     },
+    
     recipe: async (parent, { id }) => {
       try {
-        const recipe = await Recipe.findOne({ _id: id }).populate('user');
-        return recipe;
+        const recipe = await Recipe.findOne().populate('user');
+        console.log('Fetched recipe from database:', recipe);
+    
+        // Construct image URLs based on filenames
+        const recipeWithImageUrls = {
+          ...recipe.toObject(), // Convert Mongoose document to plain object
+          image: `/uploads/${recipe.image}` // Construct the URL
+        };
+    
+        return recipeWithImageUrls;
       } catch (error) {
-        throw new Error('No recipe found');
+        throw new Error('Error fetching recipes');
       }
-    },    
+    }, 
+    randomRecipeId: async () => {
+      const recipes = await Recipe.find();
+      const randomIndex = Math.floor(Math.random() * recipes.length);
+      const randomRecipe = recipes[randomIndex];
+      return randomRecipe._id;
+    },
     me: async (parent, args, context) => {
+      console.log(context.user);
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('savedRecipes');
       }
@@ -101,7 +135,7 @@ const resolvers = {
           if (image) {
             console.log('Image is provided:', image);
   
-            const { createReadStream, filename } = await image;
+            const { createReadStream, filename, mimetype } = await image;
             console.log('Creating read stream for image:', filename);
   
             const stream = createReadStream();
@@ -164,6 +198,64 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in to add a recipe!');
       }
     },
+    updateRecipe: async (parent, { id, name, ingredients, cuisine, method, image }, context) => {
+      console.log('Attempting to update recipe:', id, name, ingredients, cuisine, method, image);
+      if (context.user) {
+        try {
+          const recipe = await Recipe.findOne({ _id: id }); // Use id here instead of _id
+          console.log('Recipe:', recipe);
+    
+          if (!recipe) {
+            throw new Error('Recipe not found');
+          }
+    
+          // Check if the user is the owner of the recipe
+          if (recipe.user.toString() !== context.user._id.toString()) {
+            throw new AuthenticationError('You are not authorized to update this recipe');
+          }
+    
+          // Only update recipe fields if they are defined in the input
+          if (name !== undefined) {
+            recipe.name = name;
+          }
+          if (ingredients !== undefined) {
+            recipe.ingredients = ingredients;
+          }
+          if (cuisine !== undefined) {
+            recipe.cuisine = cuisine;
+          }
+          if (method !== undefined) {
+            recipe.method = method;
+          }
+    
+          // Handle image update if provided
+          if (image) {
+            const { createReadStream, filename } = await image;
+            const stream = createReadStream();
+            const path = `public/uploads/${filename}`;
+    
+            await new Promise((resolve, reject) => {
+              stream
+                .pipe(createWriteStream(path))
+                .on('finish', resolve)
+                .on('error', reject);
+            });
+    
+            recipe.image = path;
+          }
+    
+          // Save the updated recipe
+          const updatedRecipe = await recipe.save();
+          return updatedRecipe;
+        } catch (error) {
+          console.error('Error updating recipe:', error);
+          throw new ApolloError('Failed to update recipe', 'RECIPE_UPDATE_ERROR');
+        }
+      } else {
+        throw new AuthenticationError('You need to be logged in to update a recipe!');
+      }
+    },
+
     saveRecipeToUser: async (parent, { userId, recipeId }, context) => {
       if (context.user) {
         try {
@@ -179,7 +271,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in to save a recipe to your profile!');
     },
-    addToShoppingList: async (_, { userId, items }, context) => {
+    addToShoppingList: async (parent, { userId, items }, context) => {
       if (context.user) {
         try {
           const updatedUser = await User.findOneAndUpdate(

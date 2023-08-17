@@ -52,6 +52,12 @@ export const QUERY_RECIPES = gql`
   }
 `;
 
+export const QUERY_RANDOM_RECIPE_ID = gql`
+  query randomRecipeId {
+    randomRecipeId
+  }
+`;
+
 export const QUERY_ME = gql`
   query me {
     me {

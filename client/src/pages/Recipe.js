@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 
 import AddToShoppingList from '../components/AddToShoppingList';
 
+
 import { QUERY_SINGLE_RECIPE } from '../utils/queries';
 
 const Recipe = () => {
@@ -19,7 +20,7 @@ const Recipe = () => {
   });
   console.log('Recipe Data:', data);
 
-  const recipe = data?.recipe || [];
+  const recipe = data?.recipe || {};
   console.log('Recipe:', recipe);
 
   if (loading) {
@@ -28,11 +29,15 @@ const Recipe = () => {
   return (
     <main>
     <div>
-      <h1 className="card-header">
-        {recipe.name}
-      </h1>
-      {recipe.image}
+        
+        {recipe.image ? (
+          <img src={recipe.image} alt={recipe.name} style={{ width: '200px', height: '150px' }}/>
+        ) : (
+          <img src="/placeholder-image.jpg" alt="Placeholder" />
+        )}
+      <h1 className="card-header">{recipe.name}</h1>
     </div>
+
     <div>
       <h2>Ingredients:</h2>
       <ul>
@@ -57,10 +62,11 @@ const Recipe = () => {
         </div>
       ) : (
         <p>
-          You need to be logged in to endorse skills. Please{' '}
+          <h4>Need the ingredients for this recipe?</h4>
+          You need an account to add these ingredients to your shopping list. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
-      )};   
+      )}   
 
     </main>
   );

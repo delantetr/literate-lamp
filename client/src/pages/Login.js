@@ -54,7 +54,7 @@ const Login = (props) => {
             <Card.Body>
               <Card.Title>Login</Card.Title>
               <Form onSubmit={handleFormSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
                     type="email"
@@ -65,7 +65,7 @@ const Login = (props) => {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
