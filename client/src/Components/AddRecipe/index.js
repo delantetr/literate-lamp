@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_RECIPE } from '../../utils/mutations';
 import { QUERY_RECIPES } from '../../utils/queries';
+import Form from 'react-bootstrap/Form';
+import Buton from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+
 
 const AddRecipe = () => {
   const [recipeFormData, setRecipeFormData] = useState({
@@ -85,11 +89,11 @@ const AddRecipe = () => {
   };
 
   return (
-    <div>
+    <Form>
       <h2>Add a New Recipe</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
+      <Form.Group onSubmit={handleSubmit}>
+        <Form.Label htmlFor="name">Name</Form.Label>
+        <Form.Control
           type="text"
           id="name"
           name="name"
@@ -98,7 +102,7 @@ const AddRecipe = () => {
         />
 
         <label htmlFor="cuisine">Cuisine</label>
-        <input
+        <Form.Control
           type="text"
           id="cuisine"
           name="cuisine"
@@ -108,26 +112,26 @@ const AddRecipe = () => {
 
         {/* Add more input fields for other recipe details */}
         {/* For example: */}
-        <label htmlFor="ingredients">Ingredients</label>
-        <textarea
+        <Form.Label htmlFor="ingredients">Ingredients</Form.Label>
+        <Form.Control
           id="ingredients"
           name="ingredients"
           value={recipeFormData.ingredients}
           onChange={handleInputChange}
         />
 
-        <label htmlFor="method">Method</label>
-        <textarea
+        <Form.Label htmlFor="method">Method</Form.Label>
+        <Form.Control
           id="method"
           name="method"
           value={recipeFormData.method}
           onChange={handleInputChange}
         />
 
-        <button type="submit">Add Recipe</button>
-      </form>
+        <Button className='m-2' type="submit">Add Recipe</Button>
+      </Form.Group>
       {error && <p>Error: {error.message}</p>}
-    </div>
+    </Form>
   );
 };
 

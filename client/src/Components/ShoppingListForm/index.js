@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { Button, Form, InputGroup} from 'react-bootstrap';
 
 import { ADD_TO_SHOPPING_LIST } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
@@ -54,31 +55,31 @@ function ShoppingListForm() {
 
   return (
     <div>
-      <form
+      <Form
         className="flex-row justify-center justify-space-between-md align-center"
         onSubmit={handleSubmit}
       >
-        <div className="col-12">
-          <textarea
+        <InputGroup className="col-12">
+          <InputGroup.Text
             name="text"
             placeholder=""
             value={formState.shoppingList}
-            className="form-input w-100"
             style={{ lineHeight: '1.5' }}
             onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className="col-12 col-lg-3">
-          <button className="btn btn-info btn-block py-3" type="submit">
+          ></InputGroup.Text>
+          <Form.Control as="textarea"/>
+        </InputGroup>
+        <div className="m-2">
+          <Button className="btn btn-info btn-block py-3" type="submit">
             Add Item
-          </button>
+          </Button>
         </div>
         {error && (
           <div className="col-12 my-3 bg-danger text-white p-3">
             Something went wrong...
           </div>
         )}
-      </form>
+      </Form>
     </div>
   );
 };
