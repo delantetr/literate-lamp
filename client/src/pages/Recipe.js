@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Card from 'react-bootstrap/Card';
 
-import AddToShoppingList from '../components/AddToShoppingList';
+import AddToShoppingList from '../Components/AddToShoppingList';
 
 
 import { QUERY_SINGLE_RECIPE } from '../utils/queries';

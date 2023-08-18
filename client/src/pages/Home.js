@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { QUERY_SINGLE_RECIPE, QUERY_RANDOM_RECIPE_ID } from '../utils/queries';
-import AddToShoppingList from '../components/AddToShoppingList';
+import AddToShoppingList from '../Components/AddToShoppingList';
 import Auth from '../utils/auth';
 import Card from 'react-bootstrap/Card';
 

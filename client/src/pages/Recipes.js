@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 
 import { QUERY_RECIPES } from '../utils/queries';
-import AddRecipe from '../components/AddRecipe';
+import AddRecipe from '../Components/AddRecipe';
 
 const Recipes = () => {
   const { loading, data } = useQuery(QUERY_RECIPES);
