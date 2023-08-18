@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 
-import ShoppingListForm from '../components/ShoppingListForm';
-import List from '../components/List';
+import ShoppingListForm from '../Components/ShoppingListForm';
+import List from '../Components/List';
 
 import { QUERY_ME } from '../utils/queries';
 
